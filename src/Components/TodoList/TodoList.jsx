@@ -5,13 +5,13 @@ import { TodoItem } from "../TodoItem/TodoItem";
 // ACTIONS
 import { deleteAllTodo } from "../../store/slices/todoSlice";
 // SELECTORS
-import { selectFilters } from "../../store/selectors/selectFilters";
+import { selectFilters } from "../../store/selectors/selectTodos";
 import { selectTodos } from "../../store/selectors/selectTodos";
 import { selectAllTodos } from "../../store/selectors/selectTodos";
 // STYLE
 import { useStyle } from "./style";
 // MUI
-import { Stack, Typography, Button, Box } from "@mui/material";
+import { Stack, Typography, Button, Box, Badge } from "@mui/material";
 import { useSnackbar } from "notistack";
 // MUI ICONS
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -20,7 +20,7 @@ export const TodoList = () => {
   const classes = useStyle();
   const { enqueueSnackbar } = useSnackbar();
   const filter = useSelector(selectFilters);
-  const todos = useSelector((store) => selectTodos(store, filter));
+  const todos = useSelector(selectTodos);
   const totalTodoslength = useSelector(selectAllTodos).length;
   const dispatch = useDispatch();
 
@@ -28,7 +28,7 @@ export const TodoList = () => {
     dispatch(deleteAllTodo());
     enqueueSnackbar("TASKS DELETED!!!", {
       variant: "error",
-    })
+    });
   };
 
   return (
@@ -48,13 +48,16 @@ export const TodoList = () => {
         ))}
         {todos.length > 1 ? (
           <Button
+            className={classes.btn}
             variant="contained"
             color="error"
             size="large"
-            endIcon={<DeleteForeverIcon size="large" />}
             onClick={handleDeleteAll}
           >
-            DELETE ALL
+            DELETE ALL -
+            <Badge color="secondary" badgeContent={totalTodoslength}>
+              <DeleteForeverIcon size="large" />
+            </Badge>
           </Button>
         ) : null}
       </Stack>

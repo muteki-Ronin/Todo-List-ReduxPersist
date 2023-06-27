@@ -1,17 +1,34 @@
+// CORE
+import { createSelector } from "@reduxjs/toolkit";
 // CONSTS
 import { ALL, ACTIVE, COMPLETED } from "../consts/filtersConsts";
 
-export const selectTodos = (store, filter) => {
+export const selectAllTodos = (store) => store.todos;
+export const selectFilters = (store) => store.filter;
+export const selectTodos = createSelector(
+  [selectAllTodos, selectFilters],
+  (allTodos, filters) => {
+    switch (filters) {
+      case ALL:
+        return allTodos;
+      case ACTIVE:
+        return allTodos.filter((todo) => todo.checked === false);
+      case COMPLETED:
+        return allTodos.filter((todo) => todo.checked === true);
+      default:
+        return allTodos.todos;
+    }
+  }
+);
+export const selectTodosLength = (state, filter) => {
   switch (filter) {
     case ALL:
-      return store.todos;
+      return state.todos.length;
     case ACTIVE:
-      return store.todos.filter((todo) => todo.checked === false);
+      return state.todos.filter((todo) => todo.checked === false).length;
     case COMPLETED:
-      return store.todos.filter((todo) => todo.checked === true);
+      return state.todos.filter((todo) => todo.checked === true).length;
     default:
-      return store.todos;
+      return state.todos.length;
   }
 };
-
-export const selectAllTodos = (store) => store.todos;

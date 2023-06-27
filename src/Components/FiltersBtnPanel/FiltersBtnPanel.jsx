@@ -3,9 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 // ACTIONS
 import { setFilter } from "../../store/slices/filtersSlice";
 // SELECTORS
-import { selectAllTodos } from "../../store/selectors/selectTodos";
-import { selectTodos } from "../../store/selectors/selectTodos";
-import { selectFilters } from "../../store/selectors/selectFilters";
+import { selectFilters } from "../../store/selectors/selectTodos";
+import { selectTodosLength } from "../../store/selectors/selectTodos";
 // CONSTS
 import { ALL, ACTIVE, COMPLETED } from "../../store/consts/filtersConsts";
 // STYLE
@@ -19,10 +18,10 @@ export const FiltersBtnPanel = () => {
   const classes = useStyle();
   const dispatch = useDispatch();
   const filter = useSelector(selectFilters);
-  const allTodos = useSelector(selectAllTodos).length;
-  const activeTodos = useSelector((store) => selectTodos(store, ACTIVE).length);
-  const completedTodos = useSelector(
-    (store) => selectTodos(store, COMPLETED).length
+  const allTodos = useSelector((state) => selectTodosLength(state, ALL));
+  const activeTodos = useSelector((state) => selectTodosLength(state, ACTIVE));
+  const completedTodos = useSelector((state) =>
+    selectTodosLength(state, COMPLETED)
   );
 
   return (

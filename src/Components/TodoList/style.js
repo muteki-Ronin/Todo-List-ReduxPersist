@@ -10,4 +10,7 @@ export const useStyle = createUseStyles({
   stack: {
     width: "100%",
   },
+  btn: {
+    height: "3.3rem",
+  },
 });
