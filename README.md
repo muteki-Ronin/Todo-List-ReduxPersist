@@ -5,7 +5,7 @@
 ![MUI](https://img.shields.io/badge/MUI-007FFF.svg?style=for-the-badge&logo=MUI&logoColor=white)
 ![NOTISTACK](https://img.shields.io/badge/NOTISTACK-0ef453.svg?style=for-the-badge)
 
-![Todo List preview image](./readme.jpg)
+![Todo List preview image](./screenshot_readme.jpg)
 
 ## Getting started:
 
